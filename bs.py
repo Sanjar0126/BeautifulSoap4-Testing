@@ -66,6 +66,9 @@ for link in product_links:
 
     if description == None:
         description = description_title = ""
+        
+    body = description_title
+    body.extend(description)
     
     manual_title = soup.find('div',class_='tab-list-title ab-spt-title', id='product_tab_12')
     use_manual = soup.find('div',class_='ty-wysiwyg-content content-product_tab_12', id='content_product_tab_12')
@@ -73,18 +76,25 @@ for link in product_links:
     if use_manual == None:
         use_manual = manual_title = ""
         
+    body.extend(manual_title)
+    body.extend(use_manual)
+        
     property_title = soup.find('div', class_='tab-list-title ab-spt-title', id='product_tab_13')
     properties = soup.find('div', class_='ty-wysiwyg-content content-product_tab_13', id='content_product_tab_13')
-
+    
     if properties is None:
         properties = property_title = ""
 
-    try:
-        thumb = soup.find('a', class_='cm-image-previewer cm-previewer ty-previewer', href=True)
-    except:
-        thumb = ""
-        
-    # print(thumb)
+    body.extend(property_title)
+    body.extend(properties)
+    
+    
+    thumb = []
+    
+    img_container = soup.find('div', class_='ab_vg-images-wrapper clearfix')
+    for link in img_container.find_all('a', href=True):
+        if 'http' in link['href']:
+            thumb.append(link['href'])
 
     features_soup = soup.find_all('div', class_='ty-product-feature')
     features = []
@@ -106,12 +116,11 @@ for link in product_links:
         'title': title,
         'price': price,
         'block_description': block_description,
-        'description': description,
-        'use_manual': use_manual,
-        'properties': properties,
+        'description': str(body).replace("\"", "'"),
         'thumb': thumb,
         'features': features
     }
+    
     logging.info(str(number) + ' - ' + title)
     number += 1
     products.append(product)
