@@ -14,31 +14,31 @@ headers = {
 
 categories = ['osnovnoy-uhod/', 'volosy/', 'makiyazh/', 'telo/', 'bioaktivnye-dobavki/',]
 
-product_links = ['https://facebar.com.ua/osnovnoy-uhod/drzonskin-penka-dlya-zhirnoy-problemnoy-i-kombinirovannoy-kozhi-n-zon-face-wash/']
+product_links = []
 
-# for category in categories:
-#     if category == 'osnovnoy-uhod/':
-#         page_range = 29
-#     elif category == 'volosy/':
-#         page_range = 5
-#     elif category == 'makiyazh/':
-#         page_range = 3
-#     elif category == 'telo/':
-#         page_range = 4
-#     elif category == 'bioaktivnye-dobavki/':
-#         page_range = 2
-#     for x in range(1,page_range): 
-#         r = requests.get(base_url+category+f'page-{x}/', headers=headers)
-#         soup = bs(r.content, 'lxml')
+for category in categories:
+    if category == 'osnovnoy-uhod/':
+        page_range = 29
+    elif category == 'volosy/':
+        page_range = 5
+    elif category == 'makiyazh/':
+        page_range = 3
+    elif category == 'telo/':
+        page_range = 4
+    elif category == 'bioaktivnye-dobavki/':
+        page_range = 2
+    for x in range(1,page_range): 
+        r = requests.get(base_url+category+f'page-{x}/', headers=headers)
+        soup = bs(r.content, 'lxml')
 
-#         main_grid = soup.find('div', class_="ty-pagination-container cm-pagination-container")
-#         product_list = main_grid.find_all('div', class_='ty-grid-list__image')
+        main_grid = soup.find('div', class_="ty-pagination-container cm-pagination-container")
+        product_list = main_grid.find_all('div', class_='ty-grid-list__image')
 
         
-#         for item in product_list:
-#             for link in item.find_all('a', href=True):
-#                 product_links.append(link["href"])
-#         logging.info(len(product_links))
+        for item in product_list:
+            for link in item.find_all('a', href=True):
+                product_links.append(link["href"])
+        logging.info(len(product_links))
             
 products = []
 
