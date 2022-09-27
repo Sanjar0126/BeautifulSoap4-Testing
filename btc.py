@@ -1,6 +1,5 @@
 from bs4 import BeautifulSoup as bs
 import requests
-import json
 import logging
 logging.basicConfig(level=logging.INFO, format='%(message)s')
 
@@ -10,8 +9,10 @@ HEADERS = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36'
 }
 
-INITIAL = 754649
+#### CHANGE THIS ####
+INITIAL = 754649 
 ITR_RANGE = 48
+#### CHANGE THIS ####
 
 if __name__ == '__main__':
     output = ""
@@ -21,7 +22,7 @@ if __name__ == '__main__':
         
         link = f"{BASE_URL}{block_id}"
         
-        logging.info(f"{index} - {link}")
+        logging.info(f"{index+1} - {link}")
         
         r = requests.get(link, headers=HEADERS)
         soup = bs(r.content, 'lxml')
@@ -54,5 +55,5 @@ if __name__ == '__main__':
             f"(xv) Block Reward: {block_reward}\n(xvi) Fee Reward: {fee_reward}\n(xvii)Describe clearly the details of a single transaction in this block of Bitcoin Blockchain.\n" + \
             f"[B] {link}\n[C] \n"
         
-    with open("output", "w") as text_file:
+    with open("output_btc", "w") as text_file:
         text_file.write(output)
