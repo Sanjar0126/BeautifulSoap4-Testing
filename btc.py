@@ -9,9 +9,10 @@ HEADERS = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36'
 }
 
+# zero is genesis block
 #### CHANGE THIS ####
-INITIAL = 123456 
-ITR_RANGE = 48
+INITIAL = 0 
+ITR_RANGE = 1
 #### CHANGE THIS ####
 
 if __name__ == '__main__':
