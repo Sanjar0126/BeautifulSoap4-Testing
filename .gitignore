@@ -352,3 +352,5 @@ MigrationBackup/
 venv
 data*
 output
+output_btc
+output_eth
