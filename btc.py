@@ -28,28 +28,32 @@ if __name__ == '__main__':
         r = requests.get(link, headers=HEADERS)
         soup = bs(r.content, 'lxml')
         
+        # class name can differ
         main_box = soup.find('div', class_="sc-e7f1e30c-0 gpa-dQC")
         
         box = main_box.find_all('div', class_='sc-e7f1e30c-2 geZHKv')
         
-        block_hash = box[0].find('div', class_="sc-e1190e8f-2 dctWDI").get('data-tool-tip')
-        confirmations = box[1].find('div', class_='sc-e1190e8f-2 eWPOdW').get_text().strip()
-        timestamp = box[31].find('div', class_='sc-e1190e8f-2 eWPOdW').get_text().strip()
-        height = box[32].find('div', class_='sc-e1190e8f-2 eWPOdW').get_text().strip()
-        miner = box[34].find('div', class_='sc-e1190e8f-2 eWPOdW').get_text().strip()
-        num_of_transactions = box[11].find('div', class_='sc-e1190e8f-2 eWPOdW').get_text().strip()
-        difficulty = box[24].find('div', class_='sc-e1190e8f-2 eWPOdW').get_text().strip()
-        merkle_root = box[23].find('div', class_='sc-e1190e8f-2 dctWDI').get('data-tool-tip').strip()
-        version = box[22].find('div', class_='sc-e1190e8f-2 eWPOdW').get_text().strip()
-        bits = box[26].find('div', class_='sc-e1190e8f-2 eWPOdW').get_text().strip()
-        weight = box[27].find('div', class_='sc-e1190e8f-2 eWPOdW').get_text().strip()
-        size = box[21].find('div', class_='sc-e1190e8f-2 eWPOdW').get_text().strip()
-        nonce = box[25].find('div', class_='sc-e1190e8f-2 eWPOdW').get_text().strip()
-        transaction_volume = box[4].find('div', class_='sc-e1190e8f-2 eWPOdW').get_text().strip()
-        block_reward = box[30].find('div', class_='sc-e1190e8f-2 eWPOdW').get_text().strip()
-        fee_reward = box[15].find('div', class_='sc-e1190e8f-2 eWPOdW').get_text().strip()
+        hash_div_class = "sc-559f2c50-2 cOliKQ"
+        div_class_name = "sc-559f2c50-2 cMtccO"
         
-        output = output + f"\n[A] BLOCK #{block_id}\n(i) Hash (Block Hash): {block_hash}\n(ii) Confirmations: {confirmations}\n" + \
+        block_hash = box[0].find('div', class_=hash_div_class).get('data-tool-tip')
+        confirmations = box[1].find('div', class_=div_class_name).get_text().strip()
+        timestamp = box[31].find('div', class_=div_class_name).get_text().strip()
+        height = box[32].find('div', class_=div_class_name).get_text().strip()
+        miner = box[34].find('div', class_=div_class_name).get_text().strip()
+        num_of_transactions = box[11].find('div', class_=div_class_name).get_text().strip()
+        difficulty = box[24].find('div', class_=div_class_name).get_text().strip()
+        merkle_root = box[23].find('div', class_=hash_div_class).get('data-tool-tip').strip()
+        version = box[22].find('div', class_=div_class_name).get_text().strip()
+        bits = box[26].find('div', class_=div_class_name).get_text().strip()
+        weight = box[27].find('div', class_=div_class_name).get_text().strip()
+        size = box[21].find('div', class_=div_class_name).get_text().strip()
+        nonce = box[25].find('div', class_=div_class_name).get_text().strip()
+        transaction_volume = box[4].find('div', class_=div_class_name).get_text().strip()
+        block_reward = box[30].find('div', class_=div_class_name).get_text().strip()
+        fee_reward = box[15].find('div', class_=div_class_name).get_text().strip()
+        
+        output = output + f"\n{index+1}.[A] BLOCK #{block_id}\n(i) Hash (Block Hash): {block_hash}\n(ii) Confirmations: {confirmations}\n" + \
             f"(iii) Timestamp: {timestamp}\n(iv) Height: {height}\n(v) Miner: {miner}\n(vi) Number of transactions: {num_of_transactions}\n" + \
             f"(vii) Difficulty: {difficulty}\n(viii) Merkle root: {merkle_root}\n(ix) Version: {version}\n(x) Bits: {bits}\n" + \
             f"(xi) Weight: {weight}\n(xii) Size: {size}\n(xiii) Nonce: {nonce}\n(xiv) Transaction volume: {transaction_volume}\n" + \
