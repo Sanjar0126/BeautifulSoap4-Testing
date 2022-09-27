@@ -32,25 +32,43 @@ if __name__ == '__main__':
         main_box = soup.find('div', class_='card-body')
         
         box_list = main_box.find_all('div', class_='row align-items-center')
-                
+        
         block_height = block_id
         date = box_list[1].find('div', class_='col-md-9').get_text()
         timestamp = re.search('\((.+?)\)', date).group(1)
-        transactions = main_box.find('div', {'id': 'ContentPlaceHolder1_div_tx_fieldvalue'}).get_text().strip()
-        mined_by = box_list[3].find('div', class_='col-md-9').get_text().strip()
-        block_reward = box_list[4].find('div', class_='col-md-9').get_text().strip().split('(', 1)[0]
-        uncles_reward = box_list[5].find('div', class_='col-md-9').get_text().strip().split('(', 1)[0]
-        difficulty = box_list[6].find('div', class_='col-md-9').get_text().strip().split('(', 1)[0]
-        total_difficulty = box_list[7].find('div', class_='col-md-9').get_text().strip().split('(', 1)[0]
-        size = box_list[8].find('div', class_='col-md-9').get_text().strip().split('(', 1)[0]
-        gas_used = box_list[9].find('div', class_='col-md-9').get_text().strip()
-        gas_limit = box_list[10].find('div', class_='col-md-9').get_text().strip().split('(', 1)[0]
-        extra_data = box_list[13].find('div', class_='col-md-9').get_text().strip()
-        hash = box_list[15].find('div', class_='col-md-9').get_text().strip()
-        parent_hash = box_list[16].find('div', class_='col-md-9').get_text().strip()
-        sha3_uncles = box_list[17].find('div', class_='col-md-9').get_text().strip()
-        state_root = box_list[18].find('div', class_='col-md-9').get_text().strip()
-        nonce = box_list[19].find('div', class_='col-md-9').get_text().strip()
+        
+        state_root = box_list[-2].find('div', class_='col-md-9').get_text().strip()
+        nonce = box_list[-1].find('div', class_='col-md-9').get_text().strip()
+        # could not make this sh!t better
+        if len(box_list) == 20:
+            transactions = main_box.find('div', {'id': 'ContentPlaceHolder1_div_tx_fieldvalue'}).get_text().strip()
+            mined_by = box_list[3].find('div', class_='col-md-9').get_text().strip()
+            block_reward = box_list[4].find('div', class_='col-md-9').get_text().strip().split('(', 1)[0]
+            uncles_reward = box_list[5].find('div', class_='col-md-9').get_text().strip().split('(', 1)[0]
+            difficulty = box_list[6].find('div', class_='col-md-9').get_text().strip().split('(', 1)[0]
+            total_difficulty = box_list[7].find('div', class_='col-md-9').get_text().strip().split('(', 1)[0]
+            size = box_list[8].find('div', class_='col-md-9').get_text().strip().split('(', 1)[0]
+            gas_used = box_list[9].find('div', class_='col-md-9').get_text().strip()
+            gas_limit = box_list[10].find('div', class_='col-md-9').get_text().strip().split('(', 1)[0]
+            extra_data = box_list[13].find('div', class_='col-md-9').get_text().strip()
+            hash = box_list[15].find('div', class_='col-md-9').get_text().strip()
+            parent_hash = box_list[16].find('div', class_='col-md-9').get_text().strip()
+            sha3_uncles = box_list[17].find('div', class_='col-md-9').get_text().strip()
+        else:
+            transactions = main_box.find('div', {'id': 'ContentPlaceHolder1_div_tx_fieldvalue'}).get_text().strip()
+            mined_by = "Unknown"
+            block_reward = box_list[7].find('div', class_='col-md-9').get_text().strip().split('(', 1)[0]
+            uncles_reward = 0
+            difficulty = "None"
+            total_difficulty = box_list[-12].find('div', class_='col-md-9').get_text().strip().split('(', 1)[0]
+            size = box_list[-11].find('div', class_='col-md-9').get_text().strip().split('(', 1)[0]
+            gas_used = box_list[-10].find('div', class_='col-md-9').get_text().strip()
+            gas_limit = box_list[-9].find('div', class_='col-md-9').get_text().strip().split('(', 1)[0]
+            extra_data = box_list[-6].find('div', class_='col-md-9').get_text().strip()
+            hash = box_list[-4].find('div', class_='col-md-9').get_text().strip()
+            parent_hash = box_list[-3].find('div', class_='col-md-9').get_text().strip()
+            sha3_uncles = "None"
+            
         
         output = output + f"\n\t{index+1}. [A] BLOCK #{block_id}\n(i) Block height: {block_height}\n(ii) Timestamp: {timestamp}\n" + \
             f"(iii) Transactions: {transactions}\n(iv) Mined By: {mined_by}\n(v) Block Reward: {block_reward}\n(vi) Uncles reward: {uncles_reward}\n" + \
