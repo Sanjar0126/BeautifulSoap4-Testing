@@ -11,8 +11,8 @@ HEADERS = {
 
 # zero is genesis block
 #### CHANGE THIS ####
-INITIAL = 0 
-ITR_RANGE = 1
+INITIAL = 755125 
+ITR_RANGE = 48
 #### CHANGE THIS ####
 
 if __name__ == '__main__':
