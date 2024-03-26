@@ -12,20 +12,20 @@ headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36'
 }
 
-categories = ['osnovnoy-uhod/', 'volosy/', 'makiyazh/', 'telo/', 'bioaktivnye-dobavki/',]
+categories = ['doglyad-za-oblichchyam/', 'kosmetika-dlya-volossya/', 'kosmetika-dlya-makiyazhu/', 'tilo/', 'bioaktivnye-dobavki-uk/',]
 
 product_links = []
 
 for category in categories:
-    if category == 'osnovnoy-uhod/':
+    if category == 'doglyad-za-oblichchyam/':
         page_range = 29
-    elif category == 'volosy/':
+    elif category == 'kosmetika-dlya-volossya/':
         page_range = 5
-    elif category == 'makiyazh/':
+    elif category == 'kosmetika-dlya-makiyazhu/':
         page_range = 3
-    elif category == 'telo/':
+    elif category == 'tilo/':
         page_range = 4
-    elif category == 'bioaktivnye-dobavki/':
+    elif category == 'bioaktivnye-dobavki-uk/':
         page_range = 2
     for x in range(1,page_range): 
         r = requests.get(base_url+category+f'page-{x}/', headers=headers)
@@ -33,7 +33,6 @@ for category in categories:
 
         main_grid = soup.find('div', class_="ty-pagination-container cm-pagination-container")
         product_list = main_grid.find_all('div', class_='ty-grid-list__image')
-
         
         for item in product_list:
             for link in item.find_all('a', href=True):
