@@ -46,7 +46,7 @@ def get_site_products(list_element):
     for prod in product_list:
         prod_link = prod.find("fe-product-image").find("a", href=True)
         links.append(prod_link['href'])
-    
+        
     return links
 
 def scroll_down(driver):
@@ -127,6 +127,8 @@ if __name__ == '__main__':
     cat_element = browser.find_element(by=By.TAG_NAME, value="mc-nav-tree-large").get_attribute('innerHTML')
     categories = get_site_categories(cat_element)
     
+    categories = [categories[0]] # get only first category
+        
     product_links = []
     for category_link in categories:
         try:
@@ -137,14 +139,14 @@ if __name__ == '__main__':
             
             product_list_field = browser.find_element(by=By.TAG_NAME, value="fe-product-list").get_attribute('innerHTML')
                 
-            product_links.append(get_site_products(product_list_field))
+            product_links.extend(get_site_products(product_list_field))
         except Exception as e:
             errors.append({
                 "error": e,
                 "msg": "error while getting product links"
             })
             continue
-            
+        
     product_details = []
     
     for product_link in product_links:
@@ -161,7 +163,7 @@ if __name__ == '__main__':
                 "msg": "error while getting product links"
             })
             continue
-    
+        
     with open('data.json', 'w', encoding='utf-8') as f:
         json.dump(product_details, f, ensure_ascii=False, indent=4)
     
